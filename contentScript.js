@@ -33,11 +33,18 @@
 
     const addNewBookmarkEventHandler = () => {
         const currentTime = youtubePlayer.currentTime;
+        const captionButton = document.querySelector(".ytp-subtitles-button")
+        if(captionButton){
+            captionButton.remove()
+        } else{
+            console.log('coption does not exist')
+        }
         const newBookmark = {
             time: currentTime,
             desc: "Bookmark at " + getTime(currentTime),
         };
         console.log(newBookmark);
+        console.log('remove closed caption')
 
         chrome.storage.sync.set({
             [currentVideo]: JSON.stringify([...currentVideoBookmarks, newBookmark].sort((a, b) => a.time - b.time))
@@ -46,6 +53,11 @@
 
     newVideoLoaded();
 })();
+
+    const removeClosedCaption = () => {
+        // let remove = document.getElementsByClassName('ytp-subtitles-button')
+        console.log('clicked remove button')
+    }
 
 const getTime = t => {
     var date = new Date(0);
